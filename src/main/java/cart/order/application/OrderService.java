@@ -47,7 +47,8 @@ public class OrderService {
             validateCartItem(member, requestCartItem);
             validateProductInCartItem(requestCartItem);
 
-            Product product = productDao.findById(requestCartItem.getProduct().getProductId()).get();
+            Product product = productDao.findById(requestCartItem.getProduct().getProductId())
+                    .orElseThrow(ProductNotFoundException::new);;
             orderItems.add(OrderItem.of(product, requestCartItem.getQuantity()));
         }
 
