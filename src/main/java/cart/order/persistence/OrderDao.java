@@ -36,8 +36,8 @@ public class OrderDao {
 
     public Long save(long memberId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(
+        jdbcTemplate.update(con -> {
+            PreparedStatement ps = con.prepareStatement(
                     "INSERT INTO orders (member_id) VALUES (?)",
                     Statement.RETURN_GENERATED_KEYS
             );
@@ -45,7 +45,7 @@ public class OrderDao {
             return ps;
         }, keyHolder);
 
-        return (Long) Objects.requireNonNull(keyHolder.getKeys().get("id"));
+        return keyHolder.getKey().longValue();
     }
 
     public Optional<Order> findById(Long orderId) {

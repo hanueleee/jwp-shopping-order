@@ -41,7 +41,7 @@ public class CartItemDao {
             return ps;
         }, keyHolder);
 
-        return (Long) Objects.requireNonNull(keyHolder.getKeys().get("id"));
+        return keyHolder.getKey().longValue();
     }
 
     public Optional<CartItem> findById(Long id) {
