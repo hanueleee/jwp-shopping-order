@@ -108,7 +108,7 @@ public class OrderAcceptanceTest {
 
         long orderId = LOCATION_헤더에서_ID_추출(response);
 
-        Member findMember = memberDao.getMemberByEmail(member.getEmail());
+        Member findMember = memberDao.getMemberByEmail(member.getEmail()).get();
         유저의_포인트가_갱신되었는지_검증한다(findMember, 4250);
         유저의_장바구니속_아이템이_삭제되었는지_확인한다(findMember, List.of(cartItemId1, cartItemId2));
         상품의_재고가_갱신되었는지_확인한다(List.of(productId1, productId2), List.of(25, 28));

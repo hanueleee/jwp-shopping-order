@@ -43,8 +43,9 @@ public class MemberArgumentResolver implements HandlerMethodArgumentResolver {
         String password = credentials[1];
 
         // 본인 여부 확인
-        Member member = memberDao.getMemberByEmail(email);
-        if (member == null || !member.checkPassword(password)) {
+        Member member = memberDao.getMemberByEmail(email)
+                .orElseThrow(() -> new AuthenticationException("존재하지 않는 사용자입니다."));
+        if (!member.checkPassword(password)) {
             throw new AuthenticationException("존재하지 않는 사용자입니다.");
         }
         return member;
